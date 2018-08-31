@@ -5,7 +5,7 @@ module TrimBlobs
         def log_with_blobs_trimmed(sql, name = "SQL", binds = [], statement_name = nil)
           puts "log_with_blobs_trimmed: sql=#{sql} and name=#{name} and binds=#{binds} and statement_name=#{statement_name}"
           if sql
-            sql = sql.gsub(/'\\x((?:[0-9a-f]{2})+)'/) do |blob|
+            sql = sql.gsub(/x'((?:[0-9a-f]{2})+)'/) do |blob|
               (blob.size > 32) ? "'\\x#{$1[0,32]}... (TRIMMED #{blob.size} hexadecimal digits)'" : $&
             end
           end
